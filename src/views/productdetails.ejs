@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details - My E-commerce Website</title>
+    <link rel="stylesheet" href="detail.css">
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+    <header>
+        <header> 
+            <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+            <div class="container">
+                <div class="sidebar">
+                    <div class="sidebar-header">
+                        <button class="close-btn" onclick="closeSidebar()">✖</button>
+                    </div>
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#" onclick="searchByCategory('Electronics')">Electronics</a></li>
+                        <li><a href="#" onclick="searchByCategory('Sports')">Sports</a></li>
+                        <li><a href="#" onclick="searchByCategory('Clothes')">Clothes</a></li>
+                        <!-- Add more categories as needed -->
+                    </ul>
+            
+                    <h3>Filter</h3>
+                    <ul class="filter-options">
+                        <li><a href="#" onclick="filterByPrice(0, 10000)">Price: 0-10000</a></li>
+                        <li><a href="#" onclick="filterByPricea(10000,1000000)">Price: 10000-1000000</a></li>
+                        
+                    </ul>
+                </div>
+            <h1>Yourplace.in</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop" class="active">Shop</a></li>
+                    <li><a href="/aboutcontact">About/Contact Us</a></li>
+                    <li><a href="/auth/login">Login</a></li>
+                    <li><a href="/auth/signup">Signup</a></li>
+                    <li><a href="/cart">Cart <i class="fa fa-shopping-cart" style="font-size:18px"></i></a></li> <!-- Link to Cart -->
+                    <% if (username) { %>
+                        <li>Welcome, <%= username %></li>
+                        <li><a href="/auth/logout">Logout</a></li>
+                    <% } else { %>
+                        <li><a href="/auth/login">Login</a></li>
+                    <% } %>
+                    
+                </ul>       
+    
+                <form id="searchForm">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button type="submit">Search</button>
+                </form>
+            </nav>
+        </div>
+    </header>
+
+ <!-- productdetail.html -->
+<main>
+    <section class="product-details">
+        <div class="product-card">
+            <img id="productImage" src="" alt="Product Image">
+            <h3 id="productName"></h3>
+            <p id="productPrice" class="price"></p>
+            <p id="productDescription"></p>
+            <button id="buyButton">Buy</button>
+            <button id="addToCartButton">Add to Cart</button>
+        </div>
+    </section>
+</main>
+
+
+
+
+    <footer>
+    <div class="container">
+        <p>&copy; 2024 Yourplace.in. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="details.js"></script>
+</body>
+</html>

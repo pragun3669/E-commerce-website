@@ -1,0 +1,115 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="/styles.css">
+    
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+    <header> 
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="container">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <button class="close-btn" onclick="closeSidebar()">✖</button>
+                </div>
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#" onclick="searchByCategory('Electronics')">Electronics</a></li>
+                    <li><a href="#" onclick="searchByCategory('Sports')">Sports</a></li>
+                    <li><a href="#" onclick="searchByCategory('Clothes')">Clothes</a></li>
+                    <!-- Add more categories as needed -->
+                </ul>
+        
+                <h3>Filter</h3>
+                <ul class="filter-options">
+                    <li><a href="#" onclick="filterByPrice(0, 10000)">Price: 0-10000</a></li>
+                    <li><a href="#" onclick="filterByPricea(10000,1000000)">Price: 10000-1000000</a></li>
+                 
+                </ul>
+            </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="/aboutcontact">About/Contact Us</a></li>
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/signup">Signup</a></li>
+                <li><a href="/cart">Cart<i class="fa fa-shopping-cart" style="font-size:18px"></i></a></li>
+                <% if (username) { %>
+                    <li>Welcome, <%= username %></li>
+                    <li><a href="/auth/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/auth/login">Login</a></li>
+                <% } %>
+                
+            </ul>
+        </nav>
+
+                <form id="searchForm">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button type="submit">Search</button>
+                </form>
+            </nav>
+        </div>
+          
+    </header>
+
+    
+    <main>
+        <div class="container">
+            <h1>Your Cart</h1>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% let totalAmount = 0; %>
+                    <% cartItems.forEach(cartItem => { %>
+                        <tr>
+                            <td><img src="<%= cartItem.productId.imageUrl %>" alt="<%= cartItem.productId.name %>"></td>
+                            <td><%= cartItem.productId.name %></td>
+                            <td>₹<%= cartItem.productId.price %></td>
+                            <td><%= cartItem.quantity %></td>
+                            <td>₹<%= cartItem.productId.price * cartItem.quantity %></td>
+                            <td>
+                                <form action="/cart/buy/<%= cartItem._id %>" method="GET">
+                                    <button type="submit" class="buy-button">Buy</button>
+                                </form>
+                                <form action="/cart/remove/<%= cartItem._id %>" method="POST">
+                                    <button type="submit">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% totalAmount += cartItem.productId.price * cartItem.quantity; %>
+                    <% }); %>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="4" style="text-align: right; font-weight: bold;">Total Amount:</td>
+                        <td colspan="2">₹<%= totalAmount.toFixed(2) %></td>
+                    </tr>
+                </tfoot>
+            </table>
+            
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Yourplace.in . All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

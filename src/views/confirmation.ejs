@@ -1,0 +1,110 @@
+<!-- cart.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="/styles.css">
+    
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<body>
+    <header> 
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="container">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <button class="close-btn" onclick="closeSidebar()">✖</button>
+                </div>
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#" onclick="searchByCategory('Electronics')">Electronics</a></li>
+                    <li><a href="#" onclick="searchByCategory('Sports')">Sports</a></li>
+                    <li><a href="#" onclick="searchByCategory('Clothes')">Clothes</a></li>
+                    <!-- Add more categories as needed -->
+                </ul>
+        
+                <h3>Filter</h3>
+                <ul class="filter-options">
+                    <li><a href="#" onclick="filterByPrice(0, 10000)">Price: 0-10000</a></li>
+                    <li><a href="#" onclick="filterByPricea(10000,1000000)">Price: 10000-1000000</a></li>
+                 
+                </ul>
+            </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/shop">Shop</a></li>
+                <li><a href="/aboutcontact">About/Contact Us</a></li>
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/signup">Signup</a></li>
+                <li><a href="/cart">Cart<i class="fa fa-shopping-cart" style="font-size:18px"></i></a></li>
+                <% if (username) { %>
+                    <li>Welcome, <%= username %></li>
+                    <li><a href="/auth/logout">Logout</a></li>
+                <% } else { %>
+                    <li><a href="/auth/login">Login</a></li>
+                <% } %>
+                
+            </ul>
+        </nav>
+
+                <form id="searchForm">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button type="submit">Search</button>
+                </form>
+            </nav>
+        </div>
+          
+    </header>
+
+    <main>
+        <section class="order-details">
+            <h2>Order Confirmation</h2>
+            <div class="order-summary">
+                <p><strong>Order ID:</strong> <%= order._id %></p>
+                <p><strong>Ordered Date:</strong> <%= order.orderedAt.toDateString() %></p>
+                <p><strong>Shipping Address:</strong> <%= order.address %></p>
+                <p><strong>Payment Method:</strong> <%= order.paymentMethod %></p>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price (each)</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% order.items.forEach(item => { %>
+                            <tr>
+                                <td><%= item.productId.name %></td>
+                                <td><%= item.quantity %></td>
+                                <td>$<%= item.price.toFixed(2) %></td>
+                                <td>$<%= (item.quantity * item.price).toFixed(2) %></td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+                <p><strong>Total Amount:</strong> $<%= order.totalAmount.toFixed(2) %></p>
+            </div>
+        </section>
+    </main>
+        
+        <section class="thank-you">
+            <h2>Thank You for Shopping!</h2>
+            <p>Your order has been successfully placed.</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Yourplace.in . All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

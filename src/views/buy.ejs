@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My E-commerce Website</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <header> 
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div class="container">
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <button class="close-btn" onclick="closeSidebar()">✖</button>
+                </div>
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#" onclick="searchByCategory('Electronics')">Electronics</a></li>
+                    <li><a href="#" onclick="searchByCategory('Sports')">Sports</a></li>
+                    <li><a href="#" onclick="searchByCategory('Clothes')">Clothes</a></li>
+                    <!-- Add more categories as needed -->
+                </ul>
+        
+                <h3>Filter</h3>
+                <ul class="filter-options">
+                    <li><a href="#" onclick="filterByPrice(0, 10000)">Price: 0-10000</a></li>
+                    <li><a href="#" onclick="filterByPricea(10000,1000000)">Price: 10000-1000000</a></li>
+                    <li><a href="#" onclick="sortBy('lowest')">Lowest to Highest</a></li>
+                    <li><a href="#" onclick="sortBy('highest')">Highest to Lowest</a></li>
+                    <!-- Add more sorting options as needed -->
+                </ul>
+            </div>
+       
+            <h1>Yourplace.in</h1>
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/shop" class ="active">Shop</a></li>
+                    <li><a href="/aboutcontact">About/Contact Us</a></li>
+                    <li><a href="/auth/login">Login</a></li>
+                    <li><a href="/auth/signup">Signup</a></li>
+                    <li><a href="/cart">Cart<i class="fa fa-shopping-cart" style="font-size:18px"></i></a></li>
+                   
+                </ul>
+    
+                <form id="searchForm">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button type="submit">Search</button>
+                </form>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="container">
+                <h1>Checkout</h1>
+                <div class="product">
+                    
+
+                    <div class="product-details">
+                        <p class="product-name">Product Name: <%= cartItem.productId.name %></p>
+                        <p class="product-price">Price (each): ₹<%= cartItem.productId.price.toFixed(2) %></p>
+                        <p class="product-quantity">Quantity: <%= cartItem.quantity %></p>
+                        <p class="product-total">Total Price: ₹<%= (cartItem.quantity * cartItem.productId.price).toFixed(2) %></p>
+                    </div>
+                    
+                </div>
+            
+                <form action="/place-order/:id" method="POST" class="checkout-form">
+               
+
+                    <h2>Shipping Address</h2>
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" required></textarea>
+                
+                    <h2>Payment</h2>
+                    <label for="payment">Payment Method:</label>
+                    <select id="payment" name="payment" required>
+                        <option value="credit">Credit Card</option>
+                        <option value="debit">Debit Card</option>
+                        <option value="paypal">PayPal</option>
+                        <!-- Add more payment options as needed -->
+                    </select>
+                
+                    <button type="submit" class="btn" name="action" value="place-order">Place Order</button>
+                </form>
+                
+                
+            </form>
+        </div>
+    
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Yourplace.in. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
