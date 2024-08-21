@@ -1,10 +1,9 @@
-
 // scripts_detail.js
 document.addEventListener('DOMContentLoaded', async function() {
-    try {const productId = getProductIdFromUrl(); 
+    try {
+        const productId = getProductIdFromUrl(); 
 
-        
-        const response = await fetch(`/products/productdetails/${productId}`); // Backend API endpoint for fetching product details
+        const response = await fetch(`/products/${productId}`); // Backend API endpoint for fetching product details
 
         if (!response.ok) {
             throw new Error('Failed to fetch product details');
@@ -18,11 +17,9 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.getElementById('productImage').alt = product.name;
         document.getElementById('productPrice').textContent = `Price: $${product.price.toFixed(2)}`;
         document.getElementById('productDescription').textContent = product.description;
-
-
     } catch (error) {
         console.error('Error fetching product details:', error);
-        // Optionally handle error display
+        // Optionally handle error display (e.g., show a message to the user)
     }
 });
 
@@ -38,8 +35,6 @@ function searchByCategory(category) {
         .then(response => response.json())
         .then(products => {
             // Handle products received from backend (update UI, etc.)
-            console.log('Products by category:', products);
-            // Example: Update UI with products (append to product-list)
             const productList = document.querySelector('.product-list');
             productList.innerHTML = ''; // Clear previous products
             products.forEach(product => {
@@ -63,8 +58,6 @@ function filterByPrice(minPrice, maxPrice) {
         .then(response => response.json())
         .then(products => {
             // Handle filtered products (update UI, etc.)
-            console.log('Filtered products:', products);
-            // Example: Update UI with filtered products (append to product-list)
             const productList = document.querySelector('.product-list');
             productList.innerHTML = ''; // Clear previous products
             products.forEach(product => {

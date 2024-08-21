@@ -556,6 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault(); // Prevent default form submission
 
             try {
+
                 const itemId = btn.dataset.itemId; // Get itemId from dataset or hidden input
 
                 // Fetch CSRF token if you have CSRF protection enabled
@@ -587,4 +588,28 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+});
+document.getElementById('placeOrder').addEventListener('click', function() {
+    // Redirect to the checkout page
+    window.location.href = '/checkout'; // Adjust the URL if needed
+});
+// Example using Fetch API
+fetch('/place-order', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        // Add any other headers you need
+    },
+    body: JSON.stringify({
+        address: '123 Main St',
+        payment: 'Credit Card'
+        // Add any other data you need to send
+    })
+})
+.then(response => response.json())
+.then(data => {
+    // Handle response
+})
+.catch(error => {
+    console.error('Error:', error);
 });

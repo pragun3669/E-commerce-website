@@ -115,6 +115,7 @@ router.get('/buy/:id', async (req, res) => {
 
 
 
+
 // Example isAuthenticated middleware
 function isAuthenticated(req, res, next) {
     // Check if user is authenticated

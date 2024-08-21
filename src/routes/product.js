@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../models/product');
-const User=require('../models/user');
-const mongoose=require('mongoose');
+const User = require('../models/user');
+const mongoose = require('mongoose');
+
 // GET all products
 router.get('/', async (req, res) => {
     try {
@@ -12,24 +13,23 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-
-// POST a new product
+// POST multiple new products
 router.post('/', async (req, res) => {
-    const product = new Product({
-        name: req.body.name,
-        description: req.body.description,
-        price: req.body.price,
-        category: req.body.category,
-        imageUrl: req.body.imageUrl,
-    });
+    const products = req.body;
+
+    if (!Array.isArray(products) || products.length === 0) {
+        return res.status(400).json({ message: 'No products to insert' });
+    }
 
     try {
-        const newProduct = await product.save();
-        res.status(201).json(newProduct);
+        const newProducts = await Product.insertMany(products);
+        res.status(201).json(newProducts);
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
 });
+
+// GET a product by ID
 router.get('/:productId', async (req, res) => {
     const productId = req.params.productId;
 
@@ -39,14 +39,15 @@ router.get('/:productId', async (req, res) => {
     }
 
     try {
-        // Find the product by its ObjectId
+        // Fetch product by ID
         const product = await Product.findById(productId);
 
+        // If product not found, return 404
         if (!product) {
             return res.status(404).json({ message: 'Product not found' });
         }
 
-        // Send the product details as JSON response
+        // Return the found product
         res.json(product);
     } catch (error) {
         console.error('Error fetching product details:', error);
@@ -54,11 +55,10 @@ router.get('/:productId', async (req, res) => {
     }
 });
 
-// DELETE a product
+// DELETE a product by ID
 router.delete('/:id', getProduct, async (req, res) => {
     try {
         const productId = req.params.id;
-        // Example: Delete product by productId
         const deletedProduct = await Product.findByIdAndDelete(productId);
         if (!deletedProduct) {
             return res.status(404).json({ message: 'Product not found' });
@@ -68,17 +68,16 @@ router.delete('/:id', getProduct, async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+
 // POST search products
 router.post('/search', async (req, res) => {
     const { searchQuery } = req.body;
-    
+
     try {
-        // Perform a search query based on your requirements
         const products = await Product.find({
             $or: [
-                { name: { $regex: searchQuery, $options: 'i' } }, // Case-insensitive search by product name
-                { description: { $regex: searchQuery, $options: 'i' } }, // Case-insensitive search by description
-                // Add more fields if needed
+                { name: { $regex: searchQuery, $options: 'i' } },
+                { description: { $regex: searchQuery, $options: 'i' } }
             ]
         });
 
@@ -87,40 +86,6 @@ router.post('/search', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
-router.get('/:id', async (req, res) => {
-    try {
-        const product = await Product.findById(req.params.id);
-        if (!product) {
-            return res.status(404).json({ message: 'Product not found' });
-        }
-        res.json(product);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
-router.get('/productdetails/:id', async (req, res) => {
-    try {
-        const productId = req.params.id;
-
-        // Validate if productId is a valid ObjectId
-        if (!mongoose.Types.ObjectId.isValid(productId)) {
-            return res.status(400).json({ error: 'Invalid Product ID' });
-        }
-
-        // Fetch product details using the productId
-        const product = await Product.findById(productId);
-
-        if (!product) {
-            return res.status(404).json({ error: 'Product not found' });
-        }
-
-        res.json(product); // Send product details as JSON response
-    } catch (error) {
-        console.error('Error fetching product details:', error.message);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
-
 
 // Middleware function to get a product by ID
 async function getProduct(req, res, next) {
@@ -139,3 +104,4 @@ async function getProduct(req, res, next) {
 }
 
 module.exports = router;
+

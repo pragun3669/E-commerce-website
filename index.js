@@ -17,37 +17,32 @@ const uuid=require('uuid');
 const app = express();
 const PORT = process.env.PORT || 5000;
 // Connect to MongoDB using Mongoose
-
-
-mongoose.connect('mongodb://localhost/myplace_in');
+mongoose.connect('mongodb://localhost:27017/myplace_in', {
+   
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch(err => {
+    console.error('MongoDB connection error:', err);
+});
 
 // Initialize MongoStore with session
 const sessionStore = MongoStore.create({
-    mongoUrl: 'mongodb://localhost/myplace_in',
+    mongoUrl: 'mongodb://localhost:27017/myplace_in',
     collectionName: 'sessions', // Optional, the default is 'sessions'
-    mongooseConnection: mongoose.connection,
-    ttl: 24 * 60 * 60, // Session TTL (time to live) in seconds (default is 14 days)
+    ttl: 24 * 60 * 60, // Session TTL (time to live) in seconds (1 day)
 });
 
 // Configure session middleware
 app.use(session({
-    secret: 'your_secret_key', // Replace with a random string (used to sign the session ID cookie)
+    secret: 'your_secret_key', // Replace with a random string
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
-    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // Session expires after 1 day (adjust as needed)
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // Session expires after 1 day
 }));
 
+// Event handlers for MongoDB connection
 
-//const auth = require('../middleware/auth');
-
-//Configure session middleware
- 
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
-    console.log('Connected to MongoDB');
-});
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

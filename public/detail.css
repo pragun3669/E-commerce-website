@@ -1,49 +1,150 @@
-/* styles.css */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body styles */
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure body takes up at least the full viewport height */
-}
 
 /* Header styles */
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: rgb(66, 199, 206);
+    color: rgb(11, 1, 1);
     padding: 10px 0;
+    width: 100%; /* Ensure the header takes full width */
 }
 
-
-
-.category-filter {
-    margin-left: 20px; /* Adjust margin as needed */
+header .menu-toggle {
+    background: none;
+    border: none;
+    color: rgb(10, 8, 8);
+    font-size: 20px;
+    cursor: pointer;
+    float: left;
+    margin-left: 10px;
 }
 
-#categorySelect {
-    padding: 8px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #fff;
-    color: #333;
-}
-
-.container {
+header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    position: relative;
+    max-width: 100%;
+}
+
+header h1 {
+    color: rgb(9, 3, 3);
+    margin: 0;
+    text-align: center;
+    font-size: 24px;
+    width: 100%; /* Make the header title centered and fully visible */
+}
+
+/* Navigation styles */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: rgb(10, 10, 10);
+    text-decoration: none;
+    padding: 10px;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #555;
+}
+
+/* Sidebar styles */
+
+.sidebar {
+    position: fixed;
+    left: -2500px; /* Start hidden off-screen */
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    transition: left 0.3s ease; /* Animate the sidebar's slide-in effect */
+    z-index: 1000; /* Ensure it appears above other content */
+}
+
+
+.sidebar.open {
+    left: 0;
+}
+
+.sidebar .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sidebar h3 {
+    color: #fff;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Main content styles */
+.main-content {
+    flex: 1; /* Expand to fill available space */
+    background-color: #fff; /* Set background color for the main content */
+    padding: 20px; /* Add padding to main content */
+    margin-left: 250px; /* Adjust for sidebar width */
+}
+
+.hero {
+    background-color: #f0f0f0;
+    padding: 50px 0;
+    text-align: center;
+}
+
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: relative; /* Allows footer to naturally flow with content */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding is included in width */
+}
+/* Button styles */
+.btn, button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover, button:hover {
+    background-color: #555;
 }
 
 h1 {
@@ -314,7 +415,7 @@ nav button[type="submit"] {
 
 .sidebar {
     position: fixed;
-    left: -250px;
+    left: -2500px;
     top: 0;
     bottom: 0;
     width: 250px;

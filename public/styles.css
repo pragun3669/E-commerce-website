@@ -3,7 +3,10 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0; /* Set background color for the body */
+    background-color: #fcf5f5; /* Set background color for the body */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    display: flex;
+    flex-direction: column; /* Enable flexible layout */
 }
 
 .container {
@@ -12,16 +15,18 @@ body {
     overflow: hidden; /* Clear floats */
 }
 
+/* Header styles */
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: rgb(66, 199, 206);
+    color: rgb(11, 1, 1);
     padding: 10px 0;
+    width: 100%; /* Ensure the header takes full width */
 }
 
 header .menu-toggle {
     background: none;
     border: none;
-    color: #fff;
+    color: rgb(10, 8, 8);
     font-size: 20px;
     cursor: pointer;
     float: left;
@@ -33,15 +38,18 @@ header .container {
     justify-content: space-between;
     align-items: center;
     position: relative;
+    max-width: 100%;
 }
 
 header h1 {
-    color: #ccc;
+    color: rgb(9, 3, 3);
     margin: 0;
     text-align: center;
     font-size: 24px;
+    width: 100%; /* Make the header title centered and fully visible */
 }
 
+/* Navigation styles */
 nav ul {
     list-style-type: none;
     margin: 0;
@@ -54,7 +62,7 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: rgb(10, 10, 10);
     text-decoration: none;
     padding: 10px;
     transition: all 0.3s ease;
@@ -64,17 +72,21 @@ nav ul li a:hover {
     background-color: #555;
 }
 
+/* Sidebar styles */
+
 .sidebar {
     position: fixed;
-    left: -250px;
+    left: -2500px; /* Start hidden off-screen */
     top: 0;
     bottom: 0;
     width: 250px;
-    background-color: #333; /* Sidebar background color */
+    background-color: #333;
+    color: #fff;
     padding: 20px;
-    transition: all 0.3s ease;
+    transition: left 0.3s ease; /* Animate the sidebar's slide-in effect */
     z-index: 1000; /* Ensure it appears above other content */
 }
+
 
 .sidebar.open {
     left: 0;
@@ -110,10 +122,12 @@ nav ul li a:hover {
     text-decoration: underline;
 }
 
+/* Main content styles */
 .main-content {
-    margin-left: 250px; /* Adjust to sidebar width */
+    flex: 1; /* Expand to fill available space */
     background-color: #fff; /* Set background color for the main content */
     padding: 20px; /* Add padding to main content */
+    margin-left: 250px; /* Adjust for sidebar width */
 }
 
 .hero {
@@ -122,16 +136,20 @@ nav ul li a:hover {
     text-align: center;
 }
 
-.hero h2 {
-    margin-bottom: 10px;
+/* Footer styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+    position: relative; /* Allows footer to naturally flow with content */
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box; /* Ensures padding is included in width */
 }
-
-.hero p {
-    font-size: 18px;
-    margin-bottom: 20px;
-}
-
-.btn {
+/* Button styles */
+.btn, button {
     display: inline-block;
     padding: 10px 20px;
     background-color: #333;
@@ -141,14 +159,11 @@ nav ul li a:hover {
     transition: background-color 0.3s ease;
 }
 
-.btn:hover {
+.btn:hover, button:hover {
     background-color: #555;
 }
 
-.products {
-    padding: 50px 0;
-}
-
+/* Product list and card styles */
 .product-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -173,77 +188,7 @@ nav ul li a:hover {
     margin-bottom: 10px;
 }
 
-.price {
-    font-weight: bold;
-    color: #333;
-    margin-top: 10px;
-}
-
-.add-to-cart-button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.add-to-cart-button:hover {
-    background-color: #555;
-}
-
-footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-}
-
-.logout-btn {
-    color: red;
-    font-weight: bold;
-    text-decoration: none;
-    border: 1px solid red;
-    padding: 8px 16px;
-    border-radius: 4px;
-    transition: color 0.3s ease, background-color 0.3s ease;
-}
-
-.logout-btn:hover {
-    color: #fff;
-    background-color: red;
-}
-
-nav input[type="text"] {
-    flex: 1;
-    margin-right: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-nav button[type="submit"] {
-    background-color: #4CAF50;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    border: 1px solid #4CAF50;
-    border-radius: 4px;
-    padding: 10px 20px;
-}
-
-nav button[type="submit"]:hover {
-    background-color: #45a049;
-    border-color: #45a049;
-}
-
+/* Cart table styles */
 .cart-table {
     width: 100%;
     border-collapse: collapse;
@@ -262,8 +207,8 @@ nav button[type="submit"]:hover {
 }
 
 .cart-table img {
-    width: 80px; /* Fixed width for images */
-    height: 80px; /* Fixed height for images */
+    width: 80px;
+    height: 80px;
     object-fit: cover;
     border-radius: 5px;
 }
@@ -276,16 +221,13 @@ nav button[type="submit"]:hover {
     color: white;
     border: none;
     border-radius: 4px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
 }
 
 .cart-table button:hover {
     background-color: #45a049;
 }
 
+/* General styles for text and forms */
 h1 {
     color: #333;
 }
@@ -310,32 +252,25 @@ select {
     font-size: 16px;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
+/* Ensuring the main content scrolls and the footer remains fixed */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow-y: auto; /* Make content scrollable */
 }
 
-button:hover {
-    background-color: #45a049;
-}
-
-button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-}
-
+/* Specific product details styling */
 .product-details {
     border: 1px solid #ddd;
     padding: 10px;
     margin-top: 10px;
     background-color: #f9f9f9;
-    border-radius: 5px; /* Rounded corners */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .product-details p {
@@ -355,40 +290,118 @@ button:disabled {
     font-weight: bold;
 }
 
-tfoot td {
-    text-align: right;
-    padding: 8px;
-}
-
-tfoot td:first-child {
-    font-weight: bold;
-}
-
-tfoot td:last-child {
-    font-weight: bold;
-}
-
-main {
-    flex: 1;
+#searchForm {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    border-radius: 25px;
+    overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    width: 100%; /* Adjust width as needed */
+    max-width: 600px; /* Adjust max width as needed */
+    margin: 20px auto; /* Center the form horizontally */
+}
+#searchInput {
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    outline: none;
+    flex: 1; /* Take up available space */
+    border-radius: 25px 0 0 25px;
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+}
+#searchInput::placeholder {
+    color: #aaa;
+}
+#searchForm button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0 25px 25px 0;
+    transition: background-color 0.3s ease;
+}
+#searchForm button:hover {
+    background-color: #0056b3;
+}
+#searchInput:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.3);
+}
+#searchForm:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.contact-section {
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+    display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    min-height: 100vh; /* Ensure section takes full viewport height */
 }
-
-.order-details, .thank-you {
-    margin-bottom: 40px;
-}
-
-.order-summary {
-    background-color: #fff;
+.contact-section .container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    max-width: 600px; /* Max width of form */
+    width: 100%;
+}
+.contact-section h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
+}
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
-
-.order-summary p {
-    margin-bottom: 10px;
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+.form-group textarea {
+    resize: vertical; /* Allow vertical resizing only */
+}
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 6px 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 45%;
+    box-sizing: border-box;
+}
+button[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: scale(1.02);
 }

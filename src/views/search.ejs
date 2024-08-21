@@ -5,6 +5,105 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
     <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .products {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center; /* Center content horizontally */
+        }
+
+        .productitems {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center; /* Center product cards */
+        }
+
+        .product-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px; /* Fixed width to maintain appearance */
+            box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 10px; /* Margin for spacing */
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .product-card .product-info {
+            padding: 15px;
+        }
+
+        .product-card .product-info h3 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .product-card .product-info p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .product-card .product-info .price {
+            font-size: 16px;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 1024px) {
+            .product-card {
+                width: 250px; /* Adjust width for medium screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .product-card {
+                width: 200px; /* Adjust width for small screens */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-card {
+                width: 100%; /* Full width for extra small screens */
+            }
+        }
+    </style>
 </head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
@@ -24,20 +123,13 @@
                         <li><a href="#" onclick="searchByCategory('Clothes')">Clothes</a></li>
                         <!-- Add more categories as needed -->
                     </ul>
-            
-                    <h3>Filter</h3>
-                    <ul class="filter-options">
-                        <li><a href="#" onclick="filterByPrice(0, 10000)">Price: 0-10000</a></li>
-                        <li><a href="#" onclick="filterByPricea(10000,1000000)">Price: 10000-1000000</a></li>
-                       
-                    </ul>
                 </div>
-            <h1>Yourplace.in</h1>
+            <h2>Yourplace.in</h2>
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="/shop" class="active">Shop</a></li>
-                    <li><a href="/aboutcontact">About/Contact Us</a></li>
+                    <li><a href="/aboutcontact">Contact Us</a></li>
                     <li><a href="/auth/login">Login</a></li>
                     <li><a href="/auth/signup">Signup</a></li>
                     <li><a href="/cart">Cart <i class="fa fa-shopping-cart" style="font-size:18px"></i></a></li> <!-- Link to Cart -->
@@ -59,8 +151,9 @@
             </nav>
         </div>
     </header>
-    <h2 text="center">Search Results</h2>
+  
     <main>
+          <h2 text="center">Search Results</h2>
         <section class="products">
             <div class="container">
               
