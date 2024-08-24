@@ -17,5 +17,4 @@ Dive into the world of **Yourplace.in** and discover a shopping experience like 
 
 Watch the full demonstration of **Yourplace.in** in action by clicking the link below. See how easy it is to browse products, manage your cart, and check out securely. This video provides a comprehensive overview of the website's features and functionality.
 
-[Watch the Video]
 https://github.com/user-attachments/assets/2c91a235-9d45-48ce-a8b0-c3aa69d91893
