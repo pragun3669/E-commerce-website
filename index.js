@@ -36,7 +36,7 @@ const sessionStore = MongoStore.create({
 
 // Configure session middleware
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'PRAGUNSINGH', // Replace with a random string
+    secret: 'your_secret_key', // Replace with a random string
     resave: false,
     saveUninitialized: false,
     store: sessionStore,
