@@ -4,7 +4,9 @@ const Order = require('../models/order');
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 const uuid = require('uuid');
-
+ // Use UUID to generate a unique order ID
+const { v4: uuidv4 } = require('uuid');
+const orderId = uuid.v4();
 // Middleware for authentication
 function isAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
@@ -24,19 +26,16 @@ router.get('/checkout', isAuthenticated, async (req, res) => {
     }
 });
 
-// POST /place-order route to handle order placement
 router.post('/place-order', isAuthenticated, async (req, res) => {
     try {
         const { address, payment } = req.body;
         const userId = req.user._id;
-        const orderId = uuid.v4();
 
-        // Validate if userId, address, and payment exist
-        if (!userId || !address || !payment) {
+        if (!address || !payment || !userId) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
-        // Get items from the cart
+        // Fetch cart items for the user
         const cartItems = await Cart.find({ user: userId });
 
         if (!cartItems || cartItems.length === 0) {
@@ -49,38 +48,39 @@ router.post('/place-order', isAuthenticated, async (req, res) => {
             const product = await Product.findById(cartItem.productId);
 
             if (!product) {
-                console.log(`Product not found for cart item: ${cartItem._id}`);
+                console.error(`Product not found for cart item: ${cartItem._id}`);
                 continue;
             }
 
             orderItems.push({
                 productId: product._id,
                 quantity: cartItem.quantity,
-                price: product.price // Assuming price is stored in Product model
+                price: product.price
             });
         }
 
-        const totalAmount = calculateTotalAmount(orderItems);
+        // Calculate total amount
+        const totalAmount = orderItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
 
-        // Create a new order instance
+        // Generate a unique order ID
+        const orderId = uuidv4();
+
+        // Create the new order
         const newOrder = new Order({
-            orderId: orderId,
-            userId: userId,
+            orderId,
+            userId,
             items: orderItems,
-            totalAmount: totalAmount,
-            address: address,
+            totalAmount,
+            address,
             paymentMethod: payment,
             orderedAt: new Date()
         });
 
-        // Save the order to the database
         await newOrder.save();
-
-        // Clear the cart items from the database
         await Cart.deleteMany({ user: userId });
 
-        // Redirect to a confirmation page or render a success message
-        res.redirect('/checkout');
+        // Pass the new order to the checkout page
+        res.render('checkout', { order: newOrder });
 
     } catch (error) {
         console.error('Error placing order:', error);
@@ -88,7 +88,9 @@ router.post('/place-order', isAuthenticated, async (req, res) => {
     }
 });
 
-// Function to calculate total amount based on cart items
+
+
+// Function to calculate total amount based on order items
 function calculateTotalAmount(orderItems) {
     return orderItems.reduce((total, orderItem) => {
         const itemPrice = orderItem.price || 0; // Ensure price exists or default to 0

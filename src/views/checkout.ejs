@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart</title>
     <link rel="stylesheet" href="/styles.css">
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <body>
     <header> 
         <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
@@ -22,7 +21,6 @@
                     <li><a href="#" onclick="searchByCategory('Electronics')">Electronics</a></li>
                     <li><a href="#" onclick="searchByCategory('Sports')">Sports</a></li>
                     <li><a href="#" onclick="searchByCategory('Clothes')">Clothes</a></li>
-                    <!-- Add more categories as needed -->
                 </ul>
             </div>
         <nav>
@@ -39,17 +37,14 @@
                 <% } else { %>
                     <li><a href="/auth/login">Login</a></li>
                 <% } %>
-                
             </ul>
         </nav>
 
-                <form id="searchForm">
-                    <input type="text" id="searchInput" placeholder="Search products...">
-                    <button type="submit">Search</button>
-                </form>
-            </nav>
+        <form id="searchForm">
+            <input type="text" id="searchInput" placeholder="Search products...">
+            <button type="submit">Search</button>
+        </form>
         </div>
-          
     </header>
 
     <main>
@@ -84,8 +79,6 @@
                 <p><strong>Total Amount:</strong> $<%= order.totalAmount.toFixed(2) %></p>
             </div>
         </section>
-    </main>
-        
         <section class="thank-you">
             <h2>Thank You for Shopping!</h2>
             <p>Your order has been successfully placed.</p>

@@ -48,7 +48,21 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static((__dirname, 'public')));
 // Use session middleware
+app.use(express.static(path.join(__dirname, 'public')));
 
+// Route to render home.ejs
+app.get('/home', (req, res) => {
+    res.render('home'); // Assumes home.ejs is in 'views' folder
+});
+
+// Serve the index.html file
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'src', 'views'));
 //Set EJS as the view engine
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './src/views')); // Assuming your EJS files are in the 'views' directory

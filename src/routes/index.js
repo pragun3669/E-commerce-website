@@ -54,24 +54,23 @@ router.get('/cart', isAuthenticated, async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch cart items' });
     }
 });
-router.get('/confirmation', isAuthenticated, async (req, res) => {
+
+router.get('/checkout', async (req, res) => {
     try {
-        // Fetch the latest order placed by the logged-in user
-        const latestOrder = await Order.findOne({ userId: req.user._id }).sort({ orderedAt: -1 }).populate('items.productId');
+        // Fetch the order from the session or database
+        const orderId = req.session.orderId; // Example: Assuming order ID is stored in the session
+        const order = await Order.findById(orderId).populate('items.productId'); // Populate the product details
 
-        if (!latestOrder) {
-            return res.status(404).json({ error: 'No order found for the user' });
+        if (order) {
+            res.render('checkout', { order });
+        } else {
+            req.flash('error', 'No order found.');
+            res.redirect('/cart');
         }
-
-        // Render 'confirmation' view with order details
-        res.render('confirmation', { 
-            username: req.user.username,
-            order: latestOrder,
-            Product
-        });
     } catch (error) {
-        console.error('Error fetching latest order:', error);
-        res.status(500).json({ error: 'Failed to fetch order details' });
+        console.error('Error fetching the order:', error);
+        req.flash('error', 'An error occurred while processing your order.');
+        res.redirect('/cart');
     }
 });
 
